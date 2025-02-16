@@ -32,7 +32,7 @@ jobs:
       run: cmake -S ${{github.workspace}} -B ${{github.workspace}}/build_debug -DCMAKE_BUILD_TYPE=Debug
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build_debug --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build_debug --config Debug
 
     - name: Test
       working-directory: ${{github.workspace}}/build_debug
