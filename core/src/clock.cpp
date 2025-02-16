@@ -8,7 +8,7 @@ Clock::Clock(const std::string& time_point_str)
     : hours(std::stoul(time_point_str.substr(0, 2))),
       minutes(std::stoul(time_point_str.substr(3, 2))) {}
 
-Clock::Clock(size_t hours, size_t minutes) : hours(hours), minutes(minutes) {}
+Clock::Clock(size_t hours, size_t minutes) noexcept : hours(hours), minutes(minutes) {}
 
 std::string Clock::ToString() const {
   const auto hours_str = (hours < 10) ? "0" + std::to_string(hours) : std::to_string(hours);
@@ -16,7 +16,7 @@ std::string Clock::ToString() const {
   return hours_str + ":" + minutes_str;
 }
 
-Clock Clock::operator+=(const Clock& other) {
+Clock Clock::operator+=(const Clock& other) noexcept {
   hours += other.hours;
   minutes += other.minutes;
   if (minutes >= 60) {

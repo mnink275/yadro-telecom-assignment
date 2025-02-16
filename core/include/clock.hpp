@@ -5,13 +5,13 @@
 
 namespace ink {
 
-class Clock {
+class Clock final {
  public:
-  Clock() = default;
+  Clock() noexcept = default;
 
   explicit Clock(const std::string& time_point_str);
 
-  Clock(size_t hours, size_t minutes);
+  Clock(size_t hours, size_t minutes) noexcept;
 
   std::string ToString() const;
   std::pair<size_t, size_t> GetTime() const { return {hours, minutes}; }
@@ -20,7 +20,7 @@ class Clock {
     return std::tie(hours, minutes) < std::tie(other.hours, other.minutes);
   }
 
-  Clock operator+=(const Clock& other);
+  Clock operator+=(const Clock& other) noexcept;
 
   friend Clock operator-(const Clock& lhs, const Clock& rhs);
 

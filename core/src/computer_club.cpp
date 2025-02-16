@@ -7,8 +7,6 @@
 
 namespace ink {
 
-namespace {}  // namespace
-
 ComputerClub::ComputerClub(size_t num_tables, Clock open_time,
                            Clock close_time, size_t per_hour_price)
     : num_tables_(num_tables),
@@ -22,7 +20,7 @@ ComputerClub::ComputerClub(size_t num_tables, Clock open_time,
   std::cout << open_time_.ToString() << '\n';
 }
 
-ComputerClub::~ComputerClub() {
+ComputerClub::~ComputerClub() try {
   std::vector<std::string_view> clients_to_leave;
   clients_to_leave.reserve(in_club_clients_info_.size());
   for (auto& [client_name, client_info] : in_club_clients_info_) {
@@ -39,7 +37,7 @@ ComputerClub::~ComputerClub() {
   std::ranges::sort(clients_to_leave);
   for (const auto& client_name : clients_to_leave) {
     
-    PrintClienLeaveEvent(close_time_, client_name);
+    GenerateClienLeaveEvent(close_time_, client_name);
   }
 
   std::cout << close_time_.ToString() << '\n';
@@ -47,6 +45,9 @@ ComputerClub::~ComputerClub() {
   for (size_t i = 0; i < num_tables_; ++i) {
     std::cout << i + 1 << ' ' << tables_[i].revenue << ' ' << tables_[i].occupied_time.ToString() << '\n';
   }
+} catch (const std::exception& ex) {
+  std::cerr << ex.what() << '\n';
+  std::cerr << "Expection has been thrown inside ~ComputerClub";
 }
 
 void ComputerClub::ProceedEvent(Event&& event) {
@@ -70,11 +71,11 @@ void ComputerClub::ProceedEvent(Event&& event) {
 
 void ComputerClub::HandleEnterClub(Event&& event) {
   if (in_club_clients_info_.contains(event.client_name)) {
-    PrintErrorEvent(event.time_point, "YouShallNotPass");
+    GenerateErrorEvent(event.time_point, "YouShallNotPass");
     return;
   }
   if (event.time_point < open_time_ || close_time_ < event.time_point) {
-    PrintErrorEvent(event.time_point, "NotOpenYet");
+    GenerateErrorEvent(event.time_point, "NotOpenYet");
     return;
   }
 
@@ -83,15 +84,15 @@ void ComputerClub::HandleEnterClub(Event&& event) {
 
 void ComputerClub::HandleOccupyTable(Event&& event) {
   if (!in_club_clients_info_.contains(event.client_name)) {
-    PrintErrorEvent(event.time_point, "ClientUnknown");
+    GenerateErrorEvent(event.time_point, "ClientUnknown");
     return;
   }
   if (event.table_id == 0 || event.table_id > num_tables_) {
-    PrintErrorEvent(event.time_point, "IncorrectTableId");
+    GenerateErrorEvent(event.time_point, "IncorrectTableId");
     return;
   }
   if (tables_[event.table_id - 1].is_occupied) {
-    PrintErrorEvent(event.time_point, "PlaceIsBusy");
+    GenerateErrorEvent(event.time_point, "PlaceIsBusy");
     return;
   }
 
@@ -103,11 +104,11 @@ void ComputerClub::HandleOccupyTable(Event&& event) {
 
 void ComputerClub::HandleWaitFreeTable(Event&& event) {
   if (num_free_tables_ > 0) {
-    PrintErrorEvent(event.time_point, "ICanWaitNoLonger!");
+    GenerateErrorEvent(event.time_point, "ICanWaitNoLonger!");
     return;
   }
   if (waiting_group_.size() == num_tables_) {
-    PrintClienLeaveEvent(event.time_point, event.client_name);
+    GenerateClienLeaveEvent(event.time_point, event.client_name);
     return;
   }
 
@@ -116,7 +117,7 @@ void ComputerClub::HandleWaitFreeTable(Event&& event) {
 
 void ComputerClub::HandleLeaveClub(Event&& event) {
   if (!in_club_clients_info_.contains(event.client_name)) {
-    PrintErrorEvent(event.time_point, "ClientUnknown");
+    GenerateErrorEvent(event.time_point, "ClientUnknown");
     return;
   }
 
@@ -142,20 +143,20 @@ void ComputerClub::HandleLeaveClub(Event&& event) {
 
   in_club_clients_info_[client_name].occupied_table_id = occupied_table_id;
   in_club_clients_info_[client_name].occupied_table_from = event.time_point;
-  PrintClienOccupyTableEvent(event.time_point, client_name, occupied_table_id.value());
+  GenerateClienOccupyTableEvent(event.time_point, client_name, occupied_table_id.value());
 }
 
-void ComputerClub::PrintClienLeaveEvent(Clock time, std::string_view client_name) {
+void ComputerClub::GenerateClienLeaveEvent(Clock time, std::string_view client_name) {
   static constexpr auto EventID = 11;
   std::cout << time.ToString()  << " " << EventID << " " << client_name << "\n";
 }
 
-void ComputerClub::PrintClienOccupyTableEvent(Clock time, std::string_view client_name, size_t table_id) {
+void ComputerClub::GenerateClienOccupyTableEvent(Clock time, std::string_view client_name, size_t table_id) {
   static constexpr auto EventID = 12;
   std::cout << time.ToString()  << " " << EventID << " " << client_name << " " << table_id << "\n";
 }
 
-void ComputerClub::PrintErrorEvent(Clock time, std::string_view error) {
+void ComputerClub::GenerateErrorEvent(Clock time, std::string_view error) {
   static constexpr auto EventID = 13;
   std::cout << time.ToString()  << " " << EventID << " " << error << "\n";
 }

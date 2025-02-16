@@ -16,15 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Git Sumbodule init
-      run: git submodule update --init
+    - name: Configure debug
+      run: make cmake-debug
 
-    - name: Configure CMake
-      run: cmake -S ${{github.workspace}} -B ${{github.workspace}}/build_debug -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+    - name: Build debug
+      run: make build-debug
 
-    - name: Build
-      run: cmake --build ${{github.workspace}}/build_debug --config ${{env.BUILD_TYPE}}
-
-    - name: Test
-      working-directory: ${{github.workspace}}/build_debug
-      run: ctest -V -C ${{env.BUILD_TYPE}}
+    - name: Run tests
+      run: make tests

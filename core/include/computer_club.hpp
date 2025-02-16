@@ -11,20 +11,20 @@
 
 namespace ink {
 
-struct Table {
+struct Table final {
   bool is_occupied{false};
   Clock occupied_time{};
   size_t revenue{0};
 };
 
-struct Event {
+struct Event final {
   Clock time_point{};
   size_t event_id{0};
   std::string client_name;
   size_t table_id{0};
 };
 
-struct ClientInfo {
+struct ClientInfo final {
   std::optional<size_t> occupied_table_id{std::nullopt};
   Clock occupied_table_from{};
 };
@@ -50,9 +50,9 @@ class ComputerClub final {
   void HandleLeaveClub(Event&& event);
 
  private:
-  static void PrintClienLeaveEvent(Clock time, std::string_view client_name);
-  static void PrintClienOccupyTableEvent(Clock time, std::string_view client_name, size_t table_id);
-  static void PrintErrorEvent(Clock time, std::string_view error);
+  static void GenerateClienLeaveEvent(Clock time, std::string_view client_name);
+  static void GenerateClienOccupyTableEvent(Clock time, std::string_view client_name, size_t table_id);
+  static void GenerateErrorEvent(Clock time, std::string_view error);
 
   std::pair<Clock, size_t> GetTableOccupiedTimeAndRevenue(const std::string& client_name, Clock time_point);
 
@@ -63,9 +63,10 @@ class ComputerClub final {
   size_t per_hour_price_;
 
   std::unordered_map<std::string, ClientInfo> in_club_clients_info_;
+
   std::vector<Table> tables_;
   size_t num_free_tables_;
-  
+
   std::queue<std::string> waiting_group_;
 };
 
