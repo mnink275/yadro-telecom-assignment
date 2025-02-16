@@ -5,7 +5,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 add_executable(
-    ${PROJECT_NAME}_test greeter_test.cpp
+    ${PROJECT_NAME}_test
+    input_test.cpp
 )
 
 target_include_directories(
