@@ -6,7 +6,7 @@
 git clone https://github.com/mnink275/yadro-telecom-assignment.git
 cd ./yadro-telecom-assignment
 make build-release
-./build-release/ComputerClubManager /path/to/input.txt
+./build_release/ComputerClubManager /path/to/input.txt
 ```
 
 ### Windows

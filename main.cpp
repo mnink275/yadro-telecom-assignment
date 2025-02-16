@@ -86,6 +86,7 @@ int main(int argc, char** argv) {
       std::cout << event.event_id << " ";
       std::cout << event.client_name << " ";
       if (event.event_id == 2) std::cout << event.table_id << " ";
+      std::cout << '\n';
 
       computer_club_manager.ProceedEvent(std::move(event));
     }
