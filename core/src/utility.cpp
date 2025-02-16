@@ -11,7 +11,11 @@ std::vector<std::string_view> Split(std::string_view str, char delimiter) {
       result.push_back(str.substr(start));
       break;
     }
-    result.push_back(str.substr(start, end - start));
+
+    const auto length = end - start;
+    if (length > 0) {
+      result.push_back(str.substr(start, end - start));
+    }
     start = end + 1;
   }
 

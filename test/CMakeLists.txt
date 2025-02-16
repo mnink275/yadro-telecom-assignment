@@ -7,6 +7,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(
     ${PROJECT_NAME}_test
     input_test.cpp
+    utility_test.cpp
 )
 
 target_include_directories(
