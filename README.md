@@ -13,11 +13,21 @@ make build-release
 ```
 git clone https://github.com/mnink275/yadro-telecom-assignment.git
 cd ./yadro-telecom-assignment
-TODO
+mkdir build_release
+cmake -S . -B ./build_release -DCMAKE_BUILD_TYPE=Release
+cmake --build ./build_release --config Release
 ```
 
-
-## Run tests (Linux)
+## Run tests
+### Linux
 ```
 make tests
+```
+
+### Windows
+```
+mkdir build_debug
+cmake -S . -B ./build_debug -DCMAKE_BUILD_TYPE=Debug
+cmake --build ./build_debug --config Debug
+ctest -V -C Debug
 ```
