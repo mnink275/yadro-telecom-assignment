@@ -1,20 +1,23 @@
-# Simple C++ project template for Linux
+# Computer Club Manager
 
-## Features:
-- C++ sources and headers directories building via CMake
-- Google Tests via FetchContent
-- fmt lib via Git Submodule
-- CI via Github Actions
-- clang-format for code formatting
-- Makefile with convenient commands
+## Build and run
+### Linux
+```
+git clone https://github.com/mnink275/yadro-telecom-assignment.git
+cd ./yadro-telecom-assignment
+make build-release
+./build-release/ComputerClubManager /path/to/input.txt
+```
 
-## Prereguisetes for use with VSCode:
-- [Clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) extention (used as static analysiser, code browsing, IntelliSense)
-- [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) extention (used as debugger). Note: the extention's IntelliSense should be disabled (check [settings.json](.vscode/settings.json))
+### Windows
+```
+git clone https://github.com/mnink275/yadro-telecom-assignment.git
+cd ./yadro-telecom-assignment
+TODO
+```
 
-## Usage:
-- Use `make build-(debug/release)` to produce (debug/release) build
-- Use `make run-(debug/release)` to build and instantly run a binary
-- Use `make tests` to run tests with debug build
-- Use `make clean` to clean build directories
-- Use `make format` to code formatting
+
+## Run tests (Linux)
+```
+make tests
+```
