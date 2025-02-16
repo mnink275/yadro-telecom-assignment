@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
 
   std::queue<ink::Event> events;
   while (std::getline(input, line)) {
-    auto event_tokens = ink::input::ValidateLineEvent(line);
+    auto event_tokens = ink::input::ExpectEvent(line);
     if (!event_tokens.has_value()) return 1;
 
     ink::Event event;
