@@ -1,12 +1,10 @@
 # Release cmake configuration
 build_release/Makefile:
-	@git submodule update --init
 	@mkdir -p build_release
 	@cd build_release && cmake -DCMAKE_BUILD_TYPE=Release ..
 
 # Debug cmake configuration
 build_debug/Makefile:
-	@git submodule update --init
 	@mkdir -p build_debug
 	@cd build_debug && cmake -DCMAKE_BUILD_TYPE=Debug -DASAN_ENABLED=True ..
 
@@ -39,6 +37,7 @@ clean:
 format:
 	@find core -name '*pp' -type f | xargs clang-format -i
 	@find test -name '*pp' -type f | xargs clang-format -i
+	@clang-format -i main.cpp
 
 # Run tests in debug
 .PHONY: tests

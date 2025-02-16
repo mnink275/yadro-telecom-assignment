@@ -1,16 +1,19 @@
-file(
-    GLOB SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp
+set(INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(SRC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+set(HEADERS
+    ${INCLUDE_PATH}/client_club.hpp
+    ${INCLUDE_PATH}/clock.hpp
 )
-file(
-    GLOB HEADERS ${CMAKE_CURRENT_LIST_DIR}/include/*.hpp
+
+set(SOURCES
+    ${SRC_PATH}/client_club.cpp
+    ${SRC_PATH}/clock.cpp
 )
 
 add_library(
-    ${PROJECT_NAME}_objs OBJECT ${SOURCES} ${HEADERS}
+    ${PROJECT_NAME}_objs OBJECT ${HEADERS} ${SOURCES}
 )
 target_include_directories(
     ${PROJECT_NAME}_objs PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include
-)
-target_link_libraries(
-    ${PROJECT_NAME}_objs fmt
 )

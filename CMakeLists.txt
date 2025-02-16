@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(
-    Greeter
+    ComputerClubManager
     LANGUAGES CXX
 )
 
@@ -11,7 +11,6 @@ include(cmake/Sanitizers.cmake)
 include(cmake/Environment.cmake)
 
 add_subdirectory(core)
-add_subdirectory(third_party/fmt)
 
 add_executable(
     ${PROJECT_NAME} main.cpp
