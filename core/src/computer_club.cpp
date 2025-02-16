@@ -107,6 +107,10 @@ void ComputerClub::HandleWaitFreeTable(Event&& event) {
     GenerateErrorEvent(event.time_point, "ICanWaitNoLonger!");
     return;
   }
+  if (!in_club_clients_info_.contains(event.client_name)) {
+    GenerateErrorEvent(event.time_point, "ClientUnknown");
+    return;
+  }
   if (waiting_group_.size() == num_tables_) {
     GenerateClienLeaveEvent(event.time_point, event.client_name);
     return;
