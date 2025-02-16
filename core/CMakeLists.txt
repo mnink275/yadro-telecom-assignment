@@ -2,12 +2,12 @@ set(INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(SRC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 set(HEADERS
-    ${INCLUDE_PATH}/client_club.hpp
+    ${INCLUDE_PATH}/computer_club.hpp
     ${INCLUDE_PATH}/clock.hpp
 )
 
 set(SOURCES
-    ${SRC_PATH}/client_club.cpp
+    ${SRC_PATH}/computer_club.cpp
     ${SRC_PATH}/clock.cpp
 )
 

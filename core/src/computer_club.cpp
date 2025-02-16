@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <client_club.hpp>
+#include <computer_club.hpp>
 
 #include <iostream>
 #include <stdexcept>

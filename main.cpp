@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include <client_club.hpp>
+#include <computer_club.hpp>
 
 int main(int argc, char** argv) {
   if (argc != 2) {
