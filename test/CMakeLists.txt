@@ -9,6 +9,7 @@ add_executable(
     input_test.cpp
     utility_test.cpp
     clock_test.cpp
+    computer_club_test.cpp
 )
 
 target_include_directories(
