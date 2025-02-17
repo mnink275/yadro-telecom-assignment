@@ -44,12 +44,12 @@ class ComputerClub final {
 
   void ProceedEvent(Event&& event);
 
+ private:
   void HandleEnterClub(Event&& event);
   void HandleOccupyTable(Event&& event);
   void HandleWaitFreeTable(Event&& event);
   void HandleLeaveClub(Event&& event);
 
- private:
   static void GenerateClienLeaveEvent(Clock time, std::string_view client_name);
   static void GenerateClienOccupyTableEvent(Clock time, std::string_view client_name, size_t table_id);
   static void GenerateErrorEvent(Clock time, std::string_view error);

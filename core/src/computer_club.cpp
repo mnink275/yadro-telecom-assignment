@@ -1,6 +1,6 @@
-#include <algorithm>
 #include <computer_club.hpp>
 
+#include <algorithm>
 #include <iostream>
 #include <stdexcept>
 #include <cassert>
