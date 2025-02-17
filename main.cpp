@@ -18,7 +18,7 @@ bool ReadLine(std::ifstream& input, std::string& line) {
 
 }  // namespace
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) try {
   if (argc != 2) {
     std::cout << "Usage: ./ComputerClubManager <filename.txt>\n";
     return 1;
@@ -75,7 +75,6 @@ int main(int argc, char** argv) {
     events.emplace(std::move(event));
   }
 
-  try {
     ink::ComputerClub computer_club_manager{num_tables, open_time, close_time,
                                           per_hour_price};
     while (!events.empty()) {
@@ -88,10 +87,16 @@ int main(int argc, char** argv) {
       if (event.event_id == 2) std::cout << event.table_id << " ";
       std::cout << '\n';
 
+    try {
       computer_club_manager.ProceedEvent(std::move(event));
+    } catch (const ink::EventException& ev_ex) {
+      std::cout << ev_ex.what() << '\n';
     }
-  } catch (const std::exception& ex) {
-    std::cerr << ex.what() << '\n';
-    return 1;
   }
+} catch (const std::exception& ex) {
+  std::cerr << ex.what() << '\n';
+  return 1;
+} catch (...) {
+  std::cerr << "Unknown exception\n";
+  return 1;
 }

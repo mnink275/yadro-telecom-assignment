@@ -6,10 +6,15 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <stdexcept>
 
 #include <clock.hpp>
 
 namespace ink {
+
+struct EventException final : public std::runtime_error {
+  explicit EventException(const std::string& message) : std::runtime_error(message) {}
+};
 
 struct Table final {
   bool is_occupied{false};
@@ -50,9 +55,9 @@ class ComputerClub final {
   void HandleWaitFreeTable(Event&& event);
   void HandleLeaveClub(Event&& event);
 
-  static void GenerateClienLeaveEvent(Clock time, std::string_view client_name);
-  static void GenerateClienOccupyTableEvent(Clock time, std::string_view client_name, size_t table_id);
-  static void GenerateErrorEvent(Clock time, std::string_view error);
+  static std::string MakeClienLeaveEvent(Clock time, std::string_view client_name);
+  static std::string MakeClienOccupyTableEvent(Clock time, std::string_view client_name, size_t table_id);
+  static std::string MakeErrorEvent(Clock time, std::string_view error);
 
   std::pair<Clock, size_t> GetTableOccupiedTimeAndRevenue(const std::string& client_name, Clock time_point);
 
